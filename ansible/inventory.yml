@@ -1,0 +1,6 @@
+all:
+  hosts:
+    # Main app and DB server.
+    adhdbutts-wp:
+      ansible_host: 107.191.40.128
+      ansible_user: spencels

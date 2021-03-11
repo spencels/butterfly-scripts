@@ -1,0 +1,8 @@
+# Backs up MySql server.
+---
+
+# Create mysql_backup user.
+
+# Copy scripts.
+# Set script permissions.
+# Set up cron job.
