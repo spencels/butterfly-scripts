@@ -1,4 +1,3 @@
----
 - hosts: butterfly-wp
   roles:
     - mysql_backup
