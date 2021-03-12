@@ -1,0 +1,8 @@
+- hosts: "{{ host_ip }}"
+  tasks:
+    - become: yes
+      block:
+        - name: Change hostname.
+          hostname:
+            name: "{{ hostname }}"
+      

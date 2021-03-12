@@ -1,2 +1,4 @@
 **/.s3cfg
+**/__pycache__
+
 ansible/test.yml
