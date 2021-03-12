@@ -48,16 +48,14 @@ def dump_database(backup_file):
   logging.info(f'Finished dumping database.')
 
 
-def upload_to_s3(dump_file):
+def upload_to_s3(dump_file: pathlib.Path):
   """Upload file at the provided path to S3."""
-    dest = f's3://butterflies/{"" if flags.prod else "test/"}mysql-backups/{backup_file.name}'
-    logging.info(f'Uploading to Object Storage at {dest}.')
-    # Use the default .s3cfg for non-prod.
-    config_flag = f'-c"{s3cfg}"' if flags.prod else ''
-    subprocess.run(
-        f'/usr/bin/s3cmd {config_flag} put {backup_file} {dest}',
-        shell=True, check=True)
-    logging.info('Upload finished.')
+  dest = f's3://butterflies/{"" if flags.prod else "test/"}mysql-backups/{dump_file.name}'
+  logging.info(f'Uploading to Object Storage at {dest}.')
+  subprocess.run(
+      f'/usr/bin/s3cmd -c"{s3cfg}" put {dump_file} {dest}',
+      shell=True, check=True)
+  logging.info('Upload finished.')
 
 def main():
   logging.info('*** Beginning backup.')
@@ -75,6 +73,9 @@ def main():
       backup_file = tempdir_path.joinpath(f'backup-{timestamp}.sql.gz')
       dump_database(backup_file)
 
+    upload_to_s3(backup_file)
+    logging.info(f'Cleaning up.')
+  logging.info(f'Done.')
 
 
 

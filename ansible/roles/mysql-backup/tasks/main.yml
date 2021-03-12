@@ -18,13 +18,23 @@
     append: yes
   become: yes
 
-- name: Create install directory exists.
+- name: Create install directory.
   file:
     path: /opt/mysql_backup
     state: directory
     owner: mysql_backup
     group: mysql_backup
     mode: '0550'
+  become: yes
+
+- name: Copy application files.
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/mysql_backup/{{ item }}"
+    owner: mysql_backup
+    group: mysql_backup
+    mode: '0550'
+  with_items: [mysql_backup.py, run-mysqldump.sh]
   become: yes
 
 - name: Write .s3cfg.
@@ -68,4 +78,13 @@
         62373961393330326431396330653031363931306236313331626135366339626534653363346236
         6436313365626331360a666537393034656262366233383930323031623831393438343163646362
         3039
+  become: yes
+
+- name: Create log file.
+  file:
+    path: /var/log/mysql_backup.log
+    state: touch
+    owner: mysql_backup
+    group: mysql_backup
+    mode: '0664'
   become: yes

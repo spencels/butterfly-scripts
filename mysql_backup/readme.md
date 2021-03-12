@@ -1,1 +1,0 @@
-# MySql Backup Application.
