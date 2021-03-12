@@ -18,6 +18,9 @@ function main() {
 
   export ANSIBLE_CONFIG="$script_dir/ansible/ansible.cfg"
   echo "ANSIBLE_CONFIG=$ANSIBLE_CONFIG"
+
+  export ANSIBLE_VAULT_PASSWORD_FILE="$HOME/buttsdev/vault-pass.txt"
+  echo ANSIBLE_VAULT_PASSWORD_FILE="$ANSIBLE_VAULT_PASSWORD_FILE"
 }
 main "$@"
 unset -f main

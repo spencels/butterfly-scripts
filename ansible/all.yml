@@ -1,3 +1,3 @@
-- hosts: butterfly-wp
+- hosts: adhdbutts-wp
   roles:
-    - mysql_backup
+    - mysql-backup
