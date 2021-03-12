@@ -4,7 +4,7 @@
 Can be run as a cron job or one-off.
 Requires mysqldump, s3cmd.
 """
-import config
+import secrets
 import logging
 import pathlib
 import subprocess
@@ -36,8 +36,8 @@ def dump_database(backup_file):
     # pipe the error code through when the shell command uses ">" redirection.
     cmd = [
       run_mysqldump_script_path,
-      config.mysql_user,
-      config.mysql_password,
+      secrets.mysql_user,
+      secrets.mysql_password,
       backup_file]
     process = subprocess.run(cmd, stderr=subprocess.PIPE)
   logging.info(f'mysqldump stderr:\n{process.stderr.decode("utf-8")}')

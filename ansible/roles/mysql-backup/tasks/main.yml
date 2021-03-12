@@ -52,10 +52,10 @@
         3139653061323733353435656565383761363037623562363535
   become: yes
 
-- name: Write config.py.
+- name: Write secrets.py.
   template:
-    src: config.py.j2
-    dest: /opt/mysql_backup/config.py
+    src: secrets.py.j2
+    dest: /opt/mysql_backup/secrets.py
     owner: mysql_backup
     group: mysql_backup
     mode: '0550'
