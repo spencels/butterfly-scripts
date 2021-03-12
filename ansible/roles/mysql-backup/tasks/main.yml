@@ -88,3 +88,12 @@
     group: mysql_backup
     mode: '0664'
   become: yes
+
+- name: Configure cron job.
+  cron:
+    name: "mysql backup"
+    minute: "0"
+    hour: "5"
+    user: mysql_backup
+    job: "/opt/mysql_backup/mysql_backup.py --prod >/dev/null 2>&1"
+  become: yes
